@@ -3,17 +3,17 @@ import mysql.connector
 
 class DataLoader:
     def __init__(self):
-        # self.host = os.getenv("DB_HOST", "mysql")
-        # self.port = int(os.getenv("DB_PORT", "3306"))
-        # self.user = os.getenv("DB_USER", "appuser")
-        # self.password = os.getenv("DB_PASSWORD", "apppass")
-        # self.database = os.getenv("DB_NAME", "appdb")
+        self.host = os.getenv("MYSQL_URL", "mysql")
+        self.port = int(os.getenv("DB_PORT", "3306"))
+        self.user = os.getenv("DB_USER", "user")
+        self.password = os.getenv("DB_PASSWORD", "password")
+        self.database = os.getenv("DB_NAME", "mydb")
 
-        self.host = 'localhost'
-        self.port = 3306
-        self.user = 'root'
-        self.password = ''
-        self.database = 'mydb'
+        # self.host = "mysql"
+        # self.port = 3306
+        # self.user = "user"
+        # self.password = "password"
+        # self.database = "mydb"
 
     def startup(self):
         cnx = mysql.connector.connect(

@@ -3,11 +3,17 @@ import mysql.connector
 
 class DataLoader:
     def __init__(self):
-        self.host = os.getenv("DB_HOST", "mysql")
-        self.port = int(os.getenv("DB_PORT", "3306"))
-        self.user = os.getenv("DB_USER", "appuser")
-        self.password = os.getenv("DB_PASSWORD", "apppass")
-        self.database = os.getenv("DB_NAME", "appdb")
+        # self.host = os.getenv("DB_HOST", "mysql")
+        # self.port = int(os.getenv("DB_PORT", "3306"))
+        # self.user = os.getenv("DB_USER", "appuser")
+        # self.password = os.getenv("DB_PASSWORD", "apppass")
+        # self.database = os.getenv("DB_NAME", "appdb")
+
+        self.host = 'localhost'
+        self.port = 3306
+        self.user = 'root'
+        self.password = ''
+        self.database = 'mydb'
 
     def startup(self):
         cnx = mysql.connector.connect(
@@ -16,10 +22,11 @@ class DataLoader:
         )
         try:
             cur = cnx.cursor(dictionary=True)
-            cur.execute("CREATE TABLE data (ID int NOT NULL,first_name varchar(255),last_name varchar(255),PRIMARY KEY (ID))")
-            cur.execute("INSERT INTO data (first_name, last_name) VALUES ('Ada','Lovelace'),('Alan','Turing'),('Grace','Hopper'),('Edsger','Dijkstra'),('Barbara','Liskov');")
+            cur.execute("CREATE TABLE IF NOT EXISTS data (ID int NOT NULL PRIMARY KEY AUTO_INCREMENT,first_name varchar(255),last_name varchar(255));")
+            cur.execute("INSERT INTO data (first_name, last_name) VALUES ('Ada','Lovelace'),('Alan','Turing'),('Grace','Hopper'),('Edsger','Dijkstra'),('Barbara','Liskov')")
         finally:
             cur.close()
+            cnx.commit()
             cnx.close()
 
     def fetch_all(self):

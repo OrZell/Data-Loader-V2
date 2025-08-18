@@ -10,7 +10,7 @@ class DataLoader:
         # self.database = os.getenv("DB_NAME", "mydb")
 
         self.host = "mysql"
-        # self.port = 3306
+        self.port = 3306
         self.user = "user"
         self.password = "password"
         self.database = "mydb"
